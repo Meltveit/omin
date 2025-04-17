@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://meatmaster.com/sitemap.xml
+
+# Don't crawl admin pages
+User-agent: *
+Disallow: /admin/
