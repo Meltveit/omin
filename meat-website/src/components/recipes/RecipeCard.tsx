@@ -1,3 +1,4 @@
+// src/components/recipes/RecipeCard.tsx
 import Image from 'next/image';
 import Link from 'next/link';
 import { RecipeMetadata } from '@/types';

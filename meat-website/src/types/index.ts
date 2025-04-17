@@ -1,3 +1,4 @@
+// src/types/index.ts
 export interface NutritionVitamins {
     vitaminA?: number; // in μg
     vitaminB1?: number; // in mg (thiamin)

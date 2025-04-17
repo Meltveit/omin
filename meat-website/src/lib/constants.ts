@@ -1,3 +1,4 @@
+// src/lib/constants.ts
 // Define the valid category keys as a type
 export type CategoryKey = 'breakfast' | 'lunch' | 'dinner' | 'snacks';
 

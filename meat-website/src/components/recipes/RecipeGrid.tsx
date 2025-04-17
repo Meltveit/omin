@@ -1,3 +1,4 @@
+// src/components/recipes/RecipeGrid.tsx
 import { RecipeMetadata } from '@/types';
 import RecipeCard from './RecipeCard';
 
