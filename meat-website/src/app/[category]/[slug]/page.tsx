@@ -18,10 +18,16 @@ interface RecipePageProps {
   };
 }
 
+// Define the return type for generateStaticParams
+type StaticParams = Array<{
+  category: string;
+  slug: string;
+}>;
+
 // Generate static paths for all recipes
-export async function generateStaticParams() {
-  const categories = ['breakfast', 'lunch', 'dinner', 'snacks'];
-  const params = [];
+export async function generateStaticParams(): Promise<StaticParams> {
+  const categories = ['breakfast', 'lunch', 'dinner', 'snacks'] as const;
+  const params: StaticParams = [];
   
   for (const category of categories) {
     const recipes = getAllRecipes(category);

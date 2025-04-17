@@ -1,12 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import NutritionEditor from '@/components/admin/NutritionEditor';
 import { RecipeContent, NutritionInformation } from '@/types';
 
 export default function RecipeEditorPage() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const recipeId = searchParams.get('id');
   const categoryId = searchParams.get('category');
@@ -81,6 +80,31 @@ export default function RecipeEditorPage() {
         carbs: nutritionData.carbs,
         nutrition: nutritionData
       });
+    }
+  };
+  
+  const handleSaveRecipe = async () => {
+    // Here you would implement saving the recipe
+    // You could use the router to navigate after saving
+    try {
+      if (!recipe) return;
+      
+      // Example API call:
+      // const response = await fetch('/api/recipes', {
+      //   method: recipeId ? 'PUT' : 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(recipe)
+      // });
+      
+      // if (response.ok) {
+      //   // Success - you could use router.push() here to navigate
+      //   router.push(`/${recipe.category}`);
+      // }
+      
+      // For now, just show an alert
+      alert('Recipe saved successfully! (This is just a mock implementation)');
+    } catch (error) {
+      console.error('Error saving recipe:', error);
     }
   };
   
@@ -198,6 +222,7 @@ export default function RecipeEditorPage() {
       <div className="mt-8 flex justify-end">
         <button
           type="button"
+          onClick={handleSaveRecipe}
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-700 hover:bg-red-800 focus:outline-none"
         >
           Save Recipe

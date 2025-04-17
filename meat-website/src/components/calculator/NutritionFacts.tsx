@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { RecipeContent } from '@/types';
 
 interface NutritionFactsProps {
@@ -63,12 +64,12 @@ const NutritionFacts = ({ recipe, showDetailed = false }: NutritionFactsProps) =
       
       {showDetailed && (
         <div className="mt-4 text-center">
-          
+          <Link 
             href="/nutrition-calculator"
             className="text-sm text-red-700 hover:text-red-900 font-medium"
           >
             Calculate full nutrition with our calculator →
-          </a>
+          </Link>
         </div>
       )}
     </div>

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { 
-  nutritionDatabase, 
   NutritionItem, 
   searchIngredients 
 } from '@/data/nutrition-database';

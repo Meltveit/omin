@@ -52,12 +52,29 @@ export function getRecipeBySlug(category: string, slug: string): RecipeContent |
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
     
-    return {
+    // Ensure all required properties are present
+    const recipe: RecipeContent = {
       slug,
       category,
       content,
-      ...data as Omit<RecipeMetadata, 'slug' | 'category'>,
+      ingredients: Array.isArray(data.ingredients) ? data.ingredients : [],
+      instructions: Array.isArray(data.instructions) ? data.instructions : [],
+      title: data.title || '',
+      description: data.description || '',
+      date: data.date || new Date().toISOString(),
+      image: data.image || '',
+      prepTime: data.prepTime || 0,
+      cookTime: data.cookTime || 0,
+      totalTime: data.totalTime || 0,
+      servings: data.servings || '1 serving',
+      calories: data.calories || 0,
+      protein: data.protein || 0,
+      fat: data.fat || 0,
+      carbs: data.carbs || 0,
+      nutrition: data.nutrition || undefined,
     };
+    
+    return recipe;
   } catch (error) {
     console.error(`Error getting recipe ${slug} in ${category}:`, error);
     return null;

@@ -3,7 +3,7 @@ import { getAllRecipes, getAllCategories } from '@/lib/contentUtils';
 import RecipeGrid from '@/components/recipes/RecipeGrid';
 import CategoryBanner from '@/components/ui/CategoryBanner';
 import { notFound } from 'next/navigation';
-import { CATEGORY_INFO } from '@/lib/constants';
+import { CATEGORY_INFO, type CategoryKey } from '@/lib/constants';
 
 interface CategoryPageProps {
   params: {
@@ -17,12 +17,17 @@ export function generateStaticParams() {
   return categories.map(category => ({ category }));
 }
 
+// Helper function to check if the category is valid
+function isValidCategory(category: string): category is CategoryKey {
+  return category in CATEGORY_INFO;
+}
+
 // Generate metadata for the category page
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
   const { category } = params;
   
   // Check if category exists
-  if (!CATEGORY_INFO[category]) {
+  if (!isValidCategory(category)) {
     return {
       title: 'Category Not Found',
       description: 'The requested category could not be found.'
@@ -64,7 +69,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const { category } = params;
   
   // Check if category exists
-  if (!CATEGORY_INFO[category]) {
+  if (!isValidCategory(category)) {
     return notFound();
   }
   

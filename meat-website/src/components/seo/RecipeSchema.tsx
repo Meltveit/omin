@@ -25,7 +25,7 @@ export default function RecipeSchema({ recipe }: RecipeSchemaProps) {
     recipeCategory: recipe.category.charAt(0).toUpperCase() + recipe.category.slice(1),
     recipeCuisine: 'Meat-based',
     keywords: `${recipe.category}, high protein, meat recipe, ${recipe.title.toLowerCase()}`,
-    recipeYield: `${recipe.servings} serving${recipe.servings > 1 ? 's' : ''}`,
+    recipeYield: `${recipe.servings} ${parseInt(recipe.servings) > 1 ? 'servings' : 'serving'}`,
     prepTime: `PT${recipe.prepTime}M`,
     cookTime: `PT${recipe.cookTime}M`,
     totalTime: `PT${recipe.totalTime}M`,
