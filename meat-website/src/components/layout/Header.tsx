@@ -35,7 +35,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <span className="sr-only">MeatMaster</span>
             <Image 
-              src="/images/logo.png" 
+              src="/favicon.svg" 
               alt="MeatMaster Logo" 
               width={40} 
               height={40} 

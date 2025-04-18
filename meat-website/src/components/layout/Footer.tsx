@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center mb-4">
               <Image 
-                src="/images/logo-white.png" 
+                src="/favicon.svg" 
                 alt="MeatMaster Logo" 
                 width={40} 
                 height={40}
