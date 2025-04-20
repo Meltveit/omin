@@ -5,14 +5,15 @@ import CategoryBanner from '@/components/ui/CategoryBanner';
 import { notFound } from 'next/navigation';
 import { CATEGORY_INFO, type CategoryKey } from '@/lib/constants';
 
-interface CategoryPageProps {
+interface PageProps {
   params: {
     category: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // This generates the static paths for all categories
-export function generateStaticParams() {
+export async function generateStaticParams() {
   const categories = getAllCategories();
   return categories.map(category => ({ category }));
 }
@@ -23,7 +24,7 @@ function isValidCategory(category: string): category is CategoryKey {
 }
 
 // Generate metadata for the category page
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category } = params;
   
   // Check if category exists
@@ -65,7 +66,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default function CategoryPage({ params }: PageProps) {
   const { category } = params;
   
   // Check if category exists

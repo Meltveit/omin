@@ -11,11 +11,12 @@ import RecipeSchema from '@/components/seo/RecipeSchema';
 import RelatedRecipes from '@/components/recipes/RelatedRecipes';
 import NutritionFacts from '@/components/calculator/NutritionFacts';
 
-interface RecipePageProps {
+interface PageProps {
   params: {
     category: string;
     slug: string;
   };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // Define the return type for generateStaticParams
@@ -40,7 +41,7 @@ export async function generateStaticParams(): Promise<StaticParams> {
 }
 
 // Generate metadata for each recipe
-export async function generateMetadata({ params }: RecipePageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category, slug } = params;
   const recipe = getRecipeBySlug(category, slug);
   
@@ -86,7 +87,7 @@ export async function generateMetadata({ params }: RecipePageProps): Promise<Met
   };
 }
 
-export default function RecipePage({ params }: RecipePageProps) {
+export default function RecipePage({ params }: PageProps) {
   const { category, slug } = params;
   const recipe = getRecipeBySlug(category, slug);
   
