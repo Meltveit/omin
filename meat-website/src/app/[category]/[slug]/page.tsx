@@ -11,14 +11,6 @@ import RecipeSchema from '@/components/seo/RecipeSchema';
 import RelatedRecipes from '@/components/recipes/RelatedRecipes';
 import NutritionFacts from '@/components/calculator/NutritionFacts';
 
-interface PageProps {
-  params: {
-    category: string;
-    slug: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
 // Define the return type for generateStaticParams
 type StaticParams = Array<{
   category: string;
@@ -41,14 +33,19 @@ export async function generateStaticParams(): Promise<StaticParams> {
 }
 
 // Generate metadata for each recipe
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { category, slug } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}): Promise<Metadata> {
+  const { category, slug } = await params;
+  
   const recipe = getRecipeBySlug(category, slug);
   
   if (!recipe) {
     return {
       title: 'Recipe Not Found',
-      description: 'The requested recipe could not be found.'
+      description: 'The requested recipe could not be found.',
     };
   }
   
@@ -68,8 +65,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: recipe.image,
           width: 1200,
           height: 630,
-          alt: recipe.title
-        }
+          alt: recipe.title,
+        },
       ],
       publishedTime: recipe.date,
       section: category,
@@ -87,8 +84,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function RecipePage({ params }: PageProps) {
-  const { category, slug } = params;
+// Main page component
+export default async function RecipePage({
+  params,
+}: {
+  params: Promise<{ category: string; slug: string }>;
+}) {
+  const { category, slug } = await params;
+  
   const recipe = getRecipeBySlug(category, slug);
   
   if (!recipe) {

@@ -6,10 +6,8 @@ import { notFound } from 'next/navigation';
 import { CATEGORY_INFO, type CategoryKey } from '@/lib/constants';
 
 interface PageProps {
-  params: {
-    category: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ category: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 // This generates the static paths for all categories
@@ -25,13 +23,13 @@ function isValidCategory(category: string): category is CategoryKey {
 
 // Generate metadata for the category page
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { category } = params;
+  const { category } = await params; // Await params to get category
   
   // Check if category exists
   if (!isValidCategory(category)) {
     return {
       title: 'Category Not Found',
-      description: 'The requested category could not be found.'
+      description: 'The requested category could not be found.',
     };
   }
   
@@ -50,9 +48,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: `/images/${category}.jpg`,
           width: 1200,
           height: 630,
-          alt: `${info.title} - MeatMaster`
-        }
-      ]
+          alt: `${info.title} - MeatMaster`,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
@@ -66,8 +64,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function CategoryPage({ params }: PageProps) {
-  const { category } = params;
+export default async function CategoryPage({ params }: PageProps) {
+  const { category } = await params; // Await params to get category
   
   // Check if category exists
   if (!isValidCategory(category)) {
