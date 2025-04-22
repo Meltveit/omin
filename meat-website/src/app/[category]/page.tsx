@@ -5,6 +5,13 @@ import CategoryBanner from '@/components/ui/CategoryBanner';
 import { notFound } from 'next/navigation';
 import { CATEGORY_INFO, type CategoryKey } from '@/lib/constants';
 
+// Add viewport export to fix the warning
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 interface PageProps {
   params: Promise<{ category: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

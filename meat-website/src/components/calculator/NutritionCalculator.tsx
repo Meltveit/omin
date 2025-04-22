@@ -6,6 +6,13 @@ import {
   searchIngredients 
 } from '@/data/nutrition-database';
 
+// Add viewport export separately
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 interface SelectedIngredient {
   item: NutritionItem;
   quantity: number; // in grams
